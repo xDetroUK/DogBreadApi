@@ -1,53 +1,161 @@
-# 🐶 Dog Breeds API – FastAPI Integration
+# Dog Breeds API
 
-A RESTful API built with **FastAPI**, integrating [The Dog API](https://thedogapi.com), and offering:
-
-- ✅ Lifespan filtering
-- ✅ Alphabetical listing
-- ✅ PDF export of breed data
+RESTful API developed with FastAPI that integrates with [TheDogAPI](https://thedogapi.com) to provide comprehensive data about dog breeds. 
+API includes lifespan filtering, alphabetical listing, PDF export, AI-driven breed matching, and vision-based breed analysis.
 
 ---
 
-## What startup.sh Does:
+## Core Features
 
-This script bootstraps the entire development and deployment environment in one command.
-🔹 Step-by-step explanation:
+| Feature                        | Description                                                                 |
+|-------------------------------|-----------------------------------------------------------------------------|
+| `/breeds/lifespan`            | Filter breeds by minimum and maximum lifespan                              |
+| `/breeds/alphabetical`        | Return all breed names in alphabetical order                               |
+| `/breeds/export/pdf`          | Export complete breed data as a downloadable, formatted PDF                |
+| `/breeds/match`               | Get best dog breed match based on user preference via GPT-4.1              |
+| `/breeds/analyze-image`       | Send image URL to analyze the breed using GPT-4.1 vision model             |
+| `/health`                     | Lightweight health check endpoint                                          |
 
-    Creates a .env file
-    Injects required environment variables automatically so no manual config is needed:
+---
 
+## Architecture
+
+```
+src/
+├── api/               # FastAPI routers
+├── config/            # Environment configuration using pydantic-settings
+├── models/            # Pydantic models used for input/output
+├── repositories/      # Dog API integration + Redis caching logic
+├── services/          # Business logic layer (lifespan, alphabetical, PDF, etc.)
+├── utils/             # Logging setup, PDF export, AI tools (OpenAI GPT, vision)
+└── main.py            # FastAPI entrypoint
+```
+
+---
+
+## Environment Configuration
+
+`.env` file example:
+
+```env
 DOG_API_URL=https://api.thedogapi.com/v1
 REDIS_HOST=redis
 REDIS_PORT=6379
 LOG_LEVEL=info
+OPENAI_API_KEY=sk-...
+```
 
-Checks if Poetry is installed
+These are injected using `pydantic-settings` for typed config management.
 
-    If not, installs it using the official installer
+---
 
-    Ensures the Poetry binary is added to the system PATH
+## ⚙️ System Requirements
 
-Generates poetry.lock (if missing)
+- Python 3.11+
+- Docker + Docker Compose
+- Redis (for caching)
+- Poetry (dependency management)
 
-    Ensures all dependency versions are pinned and reproducible
+---
 
-Tears down any running Docker containers
-
-    Fully cleans up volumes and previous images using docker-compose down -v
-
-Builds and runs Docker containers
-
-    Rebuilds the FastAPI and Redis containers using docker-compose up --build
-
-    Launches the app ready to serve requests at:
-    http://localhost:8000
-
-## 🔧 Quick Start
+## 🐳 Docker Setup
 
 ```bash
-git clone https://github.com/xdetrouk/dog-breeds-api.git
-cd dog-breeds-api
-chmod +x startup.sh
-./startup.sh
-'''
+docker-compose up --build
+```
 
+This will:
+- Start the FastAPI app on port `8000`
+- Launch a Redis container for breed data caching
+
+---
+
+## 🧪 Development & Testing
+
+### Local Run
+
+```bash
+poetry install
+./startup.sh
+```
+
+### Run Tests
+
+```bash
+poetry run pytest
+```
+
+Includes:
+- Unit and async tests (`pytest`, `pytest-asyncio`)
+- Formatting enforced with `black`
+- Linting via `flake8`
+
+---
+
+## 📝 PDF Export Layout
+
+- Alphabetically sorted breed data
+- Paginated output with breed attributes:
+  - Name
+  - Life Span
+  - Bred For
+  - Breed Group
+  - Temperament
+
+Generated via `reportlab` and delivered as streaming FastAPI response.
+
+---
+
+## AI Integrations (OpenAI)
+
+### Match Breed (`/breeds/match`)
+
+Uses GPT-4.1 to match dog breeds based on user preference (e.g., temperament, energy level).
+
+### Image Analysis (`/breeds/analyze-image`)
+
+Uses GPT-4.1 vision model to describe or identify breed from a provided image URL.
+
+---
+
+## Observability
+
+Structured logging is powered by `structlog`, exporting JSON logs with timestamps, levels, and contexts:
+
+```json
+{
+  "event": "Filtered breeds by lifespan",
+  "count": 12,
+  "timestamp": "2025-05-11T11:15:23.123Z",
+  "level": "info"
+}
+```
+
+---
+
+## Documentation
+
+- Swagger UI: [http://localhost:8000/docs](http://localhost:8000/docs)
+- ReDoc: [http://localhost:8000/redoc](http://localhost:8000/redoc)
+- MkDocs for static site: run `mkdocs serve`
+
+---
+
+## Dependencies (from `pyproject.toml`)
+
+| Package           | Purpose                        |
+|-------------------|--------------------------------|
+| fastapi           | API framework                  |
+| httpx             | Async HTTP client              |
+| redis             | Redis support via asyncio      |
+| structlog         | Structured logging             |
+| openai            | GPT-4 text + vision models     |
+| reportlab         | PDF generation                 |
+| pydantic-settings | Env var configuration          |
+| uvicorn           | ASGI server                    |
+
+---
+
+
+
+---
