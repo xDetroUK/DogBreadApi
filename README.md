@@ -138,6 +138,21 @@ Structured logging is powered by `structlog`, exporting JSON logs with timestamp
 - Swagger UI: [http://localhost:8000/docs](http://localhost:8000/docs)
 - ReDoc: [http://localhost:8000/redoc](http://localhost:8000/redoc)
 - MkDocs for static site: run `mkdocs serve`
+  MANUAL:
+  curl http://localhost:8000/health
+
+  curl http://localhost:8000/breeds/alphabetical
+
+  GET /breeds/lifespan?min_years=10&max_years=15
+
+  curl -X GET http://localhost:8000/breeds/export/pdf --output breeds.pdf
+
+  curl -X POST http://localhost:8000/breeds/analyze-image   -F "image_url=https://cdn.pixabay.com/photo/2016/12/13/05/15/puppy-1903313_640.jpg"
+
+  curl -X POST http://localhost:8000/breeds/match \
+  -H "Content-Type: application/json" \
+  -d '{"preferences": "active lifestyle, good with kids, low shedding"}'
+
 
 ---
 
