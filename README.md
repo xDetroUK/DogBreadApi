@@ -49,7 +49,7 @@ These are injected using `pydantic-settings` for typed config management.
 
 ---
 
-## ⚙️ System Requirements
+## System Requirements
 
 - Python 3.11+
 - Docker + Docker Compose
@@ -58,7 +58,7 @@ These are injected using `pydantic-settings` for typed config management.
 
 ---
 
-## 🐳 Docker Setup
+## Docker Setup
 
 ```bash
 docker-compose up --build
@@ -70,7 +70,7 @@ This will:
 
 ---
 
-## 🧪 Development & Testing
+## Development & Testing
 
 ### Local Run
 
@@ -92,7 +92,7 @@ Includes:
 
 ---
 
-## 📝 PDF Export Layout
+## PDF Export Layout
 
 - Alphabetically sorted breed data
 - Paginated output with breed attributes:
