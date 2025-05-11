@@ -1,0 +1,17 @@
+services:
+  api:
+    build: .
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    environment:
+      - REDIS_HOST=redis
+      - DOG_API_URL=https://api.thedogapi.com/v1
+      - LOG_LEVEL=INFO
+    depends_on:
+      - redis
+  redis:
+    image: redis:7.2
+    ports:
+      - "6379:6379"

@@ -1,0 +1,7 @@
+site_name: Dog Breeds API
+theme:
+  name: material
+
+nav:
+  - Home: index.md
+  - API Reference: api/endpoints.md
