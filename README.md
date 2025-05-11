@@ -1,6 +1,6 @@
 # Dog Breeds API
 
-RESTful API developed with FastAPI that integrates with [TheDogAPI](https://thedogapi.com) to provide comprehensive data about dog breeds. 
+RESTful API developed with FastAPI that integrates with [TheDogAPI](https://thedogapi.com) to provide data about dog breeds. 
 API includes lifespan filtering, alphabetical listing, PDF export, AI-driven breed matching, and vision-based breed analysis.
 
 ---
@@ -26,7 +26,7 @@ src/
 ├── config/            # Environment configuration using pydantic-settings
 ├── models/            # Pydantic models used for input/output
 ├── repositories/      # Dog API integration + Redis caching logic
-├── services/          # Business logic layer (lifespan, alphabetical, PDF, etc.)
+├── services/          # Logic layer (lifespan, alphabetical, PDF, etc.)
 ├── utils/             # Logging setup, PDF export, AI tools (OpenAI GPT, vision)
 └── main.py            # FastAPI entrypoint
 ```
