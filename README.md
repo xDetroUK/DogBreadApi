@@ -143,7 +143,7 @@ Structured logging is powered by `structlog`, exporting JSON logs with timestamp
 
   curl http://localhost:8000/breeds/alphabetical
 
-  GET /breeds/lifespan?min_years=10&max_years=15
+  curl -X GET /breeds/lifespan?min_years=10&max_years=15
 
   curl -X GET http://localhost:8000/breeds/export/pdf --output breeds.pdf
 
